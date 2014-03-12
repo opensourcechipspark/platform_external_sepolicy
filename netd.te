@@ -8,9 +8,10 @@ allow netd self:netlink_kobject_uevent_socket *;
 allow netd self:netlink_route_socket *;
 allow netd self:netlink_nflog_socket *;
 allow netd self:rawip_socket *;
-allow netd self:udp_socket *;
-allow netd node:udp_socket node_bind;
-allow netd port:udp_socket name_bind;
+allow netd self:{ tcp_socket udp_socket } *;
+allow netd node:{ tcp_socket udp_socket } node_bind;
+allow netd port:{ tcp_socket udp_socket } name_bind;
+allow netd port:tcp_socket name_connect;
 allow netd self:unix_stream_socket *;
 allow netd shell_exec:file rx_file_perms;
 allow netd system_file:file x_file_perms;
@@ -55,6 +56,14 @@ allow netd clatd:process signal;
 # TODO: prune this back further
 allow netd ctl_default_prop:property_service set;
 allow netd device:sock_file write;
+
+# Support for mtk wifi
+allow netd device:chr_file { open write };
+
+allow netd kernel:system module_request;
+allow netd netd:capability sys_module;
+
+allow netd tmpfs:file write;
 
 ###
 ### Neverallow rules

@@ -27,3 +27,5 @@ security_access_policy(installd)
 allow installd platform_app_data_file:lnk_file { create setattr };
 allow installd app_data_file:lnk_file { create setattr };
 allow installd asec_apk_file:file r_file_perms;
+allow installd tmpfs:file write;
+allow installd sdcard_external:dir search;

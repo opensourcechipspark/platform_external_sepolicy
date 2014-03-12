@@ -51,3 +51,4 @@ allow zygote init:binder call;
 allow zygote shell_data_file:file { write getattr };
 allow zygote system:binder { transfer call };
 allow zygote servicemanager:binder { call };
+allow zygote tmpfs:file write;

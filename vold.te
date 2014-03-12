@@ -8,6 +8,10 @@ typeattribute vold mlstrustedsubject;
 allow vold system_file:file x_file_perms;
 allow vold block_device:dir create_dir_perms;
 allow vold block_device:blk_file create_file_perms;
+allow vold block_device:lnk_file { read getattr };
+#allow vold block_device:filesystem getattr;
+allow vold usb_device:dir r_dir_perms;
+allow vold usb_device:chr_file rw_file_perms;
 allow vold device:dir write;
 allow vold devpts:chr_file rw_file_perms;
 allow vold rootfs:dir mounton;
@@ -29,6 +33,13 @@ allow vold domain:dir r_dir_perms;
 allow vold domain:{ file lnk_file } r_file_perms;
 allow vold domain:process { signal sigkill };
 allow vold self:capability { sys_ptrace kill };
+allow vold tmpfs:file write;
+allow vold kernel:system module_request;
+allow vold rootfs:file x_file_perms;
+allow vold fuse_device:chr_file rw_file_perms;
+allow vold vold:capability {setgid setuid};
+allow vold unlabeled:filesystem {mount unmount}; 
+allow unlabeled unlabeled:filesystem {associate};
 
 # For blkid
 allow vold shell_exec:file rx_file_perms;
